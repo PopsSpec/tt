@@ -187,9 +187,20 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+def misplacedTilesHeuristic(state, problem):
+    misplaced = 0
+ 	current = 0
+	for row in range( 3 ):
+	    for col in range( 3 ):
+ 			if current != state.cells[row][col]:
+ 		    	misplaced += 1
+        	    current += 1
+ 	            return misplaced
+
+
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-
+   
     #to be explored (FIFO): takes in item, cost+heuristic
     frontier = util.PriorityQueue()
 
@@ -244,3 +255,146 @@ bfs = breadthFirstSearch
 dfs = depthFirstSearch
 astar = aStarSearch
 ucs = uniformCostSearch
+
+def misplacedTilesHeuristic(state, problem):
+
+ 		misplaced = 0
+ 	current = 0
+
+		for row in range( 3 ):
+		for col in range( 3 ):
+ 				if current != state.cells[row][col]:
+ 					misplaced += 1
+           		current += 1
+
+ 		return misplaced
+
+
+def euclideanDistance(xy1, xy2):
+   """
+   Returns the Euclidean distance between points xy1 and xy2.
+   Each point is represented as a tuple (x, y).
+   """
+   x1, y1 = xy1
+   x2, y2 = xy2
+
+   distance = sqrt((x1 - x2)**2 + (y1 - y2)**2)
+   return distance
+
+def euclideanHeuristic(state, problem):
+
+   misplaced = 0
+
+   for row in range( 3 ):
+       for col in range( 3 ):
+          
+           match state.cells[row][col]:
+               case 0:
+                   misplaced += util.euclideanDistance((0, 0), (row, col))
+               case 1:
+                   misplaced += util.euclideanDistance((0, 1), (row, col))
+               case 2:
+                   misplaced += util.euclideanDistance((0, 2), (row, col))
+               case 3:
+                   misplaced += util.euclideanDistance((1, 0), (row, col))
+               case 4:
+                   misplaced += util.euclideanDistance((1, 1), (row, col))
+               case 5:
+                   misplaced += util.euclideanDistance((1, 2), (row, col))
+               case 6:
+                   misplaced += util.euclideanDistance((2, 0), (row, col))
+               case 7:
+                   misplaced += util.euclideanDistance((2, 1), (row, col))
+               case 8:
+                   misplaced += util.euclideanDistance((2, 2), (row, col))
+               case default:
+                   print("err")
+  
+   return misplaced
+def manhattanHeuristic(state, problem):
+
+   misplaced = 0
+
+   for row in range( 3 ):
+       for col in range( 3 ):
+          
+           match state.cells[row][col]:
+               case 0:
+                   misplaced += util.manhattanDistance((0, 0), (row, col))
+               case 1:
+                   misplaced += util.manhattanDistance((0, 1), (row, col))
+               case 2:
+                   misplaced += util.manhattanDistance((0, 2), (row, col))
+               case 3:
+                   misplaced += util.manhattanDistance((1, 0), (row, col))
+               case 4:
+                   misplaced += util.manhattanDistance((1, 1), (row, col))
+               case 5:
+                   misplaced += util.manhattanDistance((1, 2), (row, col))
+               case 6:
+                   misplaced += util.manhattanDistance((2, 0), (row, col))
+               case 7:
+                   misplaced += util.manhattanDistance((2, 1), (row, col))
+               case 8:
+                   misplaced += util.manhattanDistance((2, 2), (row, col))
+               case default:
+                   print("err")
+  
+   return misplaced
+def outofplaceHeuristic(state, problem):
+
+   misplaced = 0
+
+   for row in range( 3 ):
+       for col in range( 3 ):
+          
+           match state.cells[row][col]:
+               case 0:
+                   if row != 0:
+                       misplaced += 1
+                   if col != 0:
+                       misplaced += 1
+               case 1:
+                   if row != 0:
+                       misplaced += 1
+                   if col != 1:
+                       misplaced += 1
+               case 2:
+                   if row != 0:
+                       misplaced += 1
+                   if col != 2:
+                       misplaced += 1
+               case 3:
+                   if row != 1:
+                       misplaced += 1
+                   if col != 0:
+                       misplaced += 1
+               case 4:
+                   if row != 1:
+                       misplaced += 1
+                   if col != 1:
+                       misplaced += 1
+               case 5:
+                   if row != 1:
+                       misplaced += 1
+                   if col != 2:
+                       misplaced += 1
+               case 6:
+                   if row != 2:
+                       misplaced += 1
+                   if col != 0:
+                       misplaced += 1
+               case 7:
+                   if row != 2:
+                       misplaced += 1
+                   if col != 1:
+                       misplaced += 1
+               case 8:
+                   if row != 2:
+                       misplaced += 1
+                   if col !=2:
+                       misplacsed += 1
+               case default:
+                   print("err")
+  
+   return misplaced
